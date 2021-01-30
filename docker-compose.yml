@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  drip:
+    image: siegerts/plumber-dripdrop
+    environment:
+      - DRIPDROP_DIR=/dripdrop
+    ports:
+      - 8000:8000
+    volumes:
+      - ./dripdrop:/dripdrop
+    restart: always
+
