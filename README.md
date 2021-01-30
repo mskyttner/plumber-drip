@@ -1,6 +1,6 @@
 # plumber-dripdrop
 
-Container with R, plumber and drip, for live deployments of Plumber APIs. Using a container can provide nice reproducible and clean execution environment for testing and developing Plumber API.
+A container with R, plumber and drip, for live deployments of Plumber APIs. Using a container can provide nice reproducible and clean execution environment for testing and developing Plumber API.
 
 What is [drip](https://github.com/siegerts/drip/)? It is a neat go binary that triggers Rscript to run a [Plumber API](https://github.com/rstudio/plumber). 
 
@@ -36,13 +36,12 @@ A few observations and questions:
 
 - The default plumber example used (bundled in the plumber R package) does not run pr$run() which drip expects?
 - It seems drip needs to run in the present directory for the entrypoint.R used in the example? For details, try to change the `drip --dir` parameter with first changing present working directory.
-- Reloads sometimes cause plumber to halt, while the drip process continues to run. Even if using "restart: always" at the container level, it won't help because drip is still fine (doesn't trap the plumber execution halting in the child process). Could the exit status of plumber execution (if execution halts) be propagated somehow so that drip can restart it if needed? Or if a live change causes a defunct R process - can it be automatically garbage collected so drip can try to recover? Sometimes when this execution halt happens it seems there might be a port clash involved?
+- Reloads sometimes cause plumber to halt, while the drip process continues to run. Even if using "restart: always" at the container level, it won't help because drip is still fine (doesn't trap the plumber execution halting in the child process). Could the exit status of plumber execution (if execution halts) be propagated somehow so that drip can restart it if needed? By using `callr`? Or if a live change causes a defunct R process - can it be automatically garbage collected so drip can try to recover? Sometimes when this execution halt happens it seems there might be a port clash involved?
 
 		server_1  | createTcpServer: address already in use
 		server_1  | Error in initialize(...) : Failed to create server
 		server_1  | Calls: <Anonymous> ... <Anonymous> -> startServer -> <Anonymous> -> initialize
 		server_1  | Execution halted
 - It would be nice with a log file from drip stored on disk at /var/log/drip?
-
-
+- It would be nice to be able to use drip with R packages that embed several plumber APIs. In recent versions of the R plumber packages, there is `plumber::plumb_api` and `plumber::available_apis` providing support for multiple APIs in one R package, which can ship multiple plumber routers, stored in the package directory inst, in the subfolder plumber (./inst/plumber/API_1/plumber.R for example).
 
