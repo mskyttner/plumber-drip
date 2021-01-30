@@ -1,10 +1,4 @@
+#!/usr/bin/env Rscript
 
-library(plumber)
-pr <- pr("myplumberapi.R") %>%
-  pr_cookie(
-    key = "pleasechangeme",
-    name = "cookieName"
-  )
+callr::rscript("drip-entrypoint.R", stdout="/var/log/drip/stdout.log", stderr="/var/log/drip/stderr.log")
 
-# MUST return a Plumber object when using `entrypoint.R`
-pr$run(host = "0.0.0.0", port = 8000)

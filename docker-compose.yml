@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  drip:
-    image: siegerts/plumber-dripdrop
+  dripdrop:
+    image: plumber-dripdrop
     environment:
       - DRIPDROP_DIR=/dripdrop
     ports:

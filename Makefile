@@ -1,7 +1,6 @@
 #! make
 
-all:
-	init build up
+all: init build up
 
 init:
 	test -d drip || git clone --depth=1 https://github.com/siegerts/drip
@@ -9,10 +8,10 @@ init:
 build:
 	# uses recent docker ce (with buildx)
 	# builds rstudio/plumber extended w drip
-	docker build --load -t siegerts/plumber-dripdrop .
+	docker build --load -t plumber-dripdrop .
 
 test-default:
-	docker run --rm siegerts/plumber-dripdrop
+	docker run --rm plumber-dripdrop
 
 up:
 	docker-compose up -d

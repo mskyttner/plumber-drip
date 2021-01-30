@@ -1,3 +1,9 @@
+#* @get /
+function(res) {
+	res$status <- 302
+	res$setHeader("Location", "/__docs__/")
+}
+
 #* @get /counter
 function(req){
   count <- 0
@@ -16,16 +22,28 @@ function() {
 		plumber_apis = plumber::available_apis(),
 		dripdrop_dir = Sys.getenv("DRIPDROP_DIR"),
 		dripdrop_files = dir(Sys.getenv("DRIPDROP_DIR")),
-		drip_ver = system("drip version", intern = TRUE)
+		drip_ver = system("drip version", intern = TRUE),
+		env = as.character(Sys.getenv()),
+		free_mem = system("free -m", intern = TRUE),
+		free_disk = system("df -h", intern = TRUE),
+		ps_zombies = system("ps aux | grep '<defunct>'", intern = TRUE)
+		
 	)
 }
 
-#* @get /
-function(res) {
-   res$status <- 302
-   res$setHeader("Location", "/__docs__/")
+#* @get /apis
+function() {
+	plumber::available_apis()
 }
 
 
+#* @get /log/stdout
+function() {
+	readLines("/var/log/drip/stdout.log")
+}
 
+#* @get /log/stderr
+function() {
+	readLines("/var/log/drip/stderr.log")
+}
 
