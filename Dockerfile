@@ -1,6 +1,7 @@
 FROM golang AS builder
+#COPY drip ./
+RUN go get -d github.com/siegerts/drip
 WORKDIR /go/src/github.com/siegerts/drip
-COPY drip ./
 RUN go build -o drip
 RUN go install .
 

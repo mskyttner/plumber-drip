@@ -6,7 +6,7 @@ What is [drip](https://github.com/siegerts/drip/)? It is a neat go binary that t
 
 When developing Plumber APIs, mount a local directory in a container DRIPDROP_DIR and watch "live reload" changes appear drip by drop for example at http://localhost:8000. 
 
-# Building
+# Local build
 
 These tools are needed for building and running locally:
 
@@ -42,6 +42,6 @@ A few observations and questions:
 		server_1  | Error in initialize(...) : Failed to create server
 		server_1  | Calls: <Anonymous> ... <Anonymous> -> startServer -> <Anonymous> -> initialize
 		server_1  | Execution halted
-- It would be nice with a log file from drip stored on disk at /var/log/drip?
+- This looks interesting if drip were to use "R" instead of "Rscript" and spawn background process with callr instead, relying on plumber to get routes info etc: [r_bg_session with finalizer](https://github.com/r-lib/callr/issues/148#issuecomment-602233394), [callr task queue](https://www.tidyverse.org/blog/2019/09/callr-task-q/)
 - It would be nice to be able to use drip with R packages that embed several plumber APIs. In recent versions of the R plumber packages, there is `plumber::plumb_api` and `plumber::available_apis` providing support for multiple APIs in one R package, which can ship multiple plumber routers, stored in the package directory inst, in the subfolder plumber (./inst/plumber/API_1/plumber.R for example).
 
