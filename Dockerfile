@@ -16,6 +16,7 @@ RUN apt-get update -y && \
 # update to use latest plumber R package
 RUN R -e "install.packages('devtools')"
 RUN R -e "devtools::install_github('rstudio/plumber')"
+RUN R -e "install.packages(c('progressr', 'furrr'))"
 
 # set up default drip drop directory and set log file locations
 ENTRYPOINT ["tini", "--"]

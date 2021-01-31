@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   dripdrop:
     image: plumber-dripdrop
     environment:
@@ -9,5 +10,16 @@ services:
       - 8000:8000
     volumes:
       - ./dripdrop:/dripdrop
+    restart: always
+
+  drop:
+    image: plumber-dripdrop
+    environment:
+      - DRIPDROP_DIR=/dripdrop
+      - DRIPDROP_PORT=8001
+    ports:
+      - 8001:8001
+    volumes:
+      - ./dripdrop2:/dripdrop
     restart: always
 
